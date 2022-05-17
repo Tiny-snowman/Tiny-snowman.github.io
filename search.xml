@@ -2,6 +2,16 @@
 <search>
   <entry>
     <title>hexo 安装之路</title>
+    <url>/2022/05/17/%E6%96%B0%E5%BB%BA%E6%96%87%E6%9C%AC%E6%96%87%E6%A1%A3/</url>
+    <content><![CDATA[<p><strong>很多人都想搭建自己的博客，但是奈何技术有限，服务器部署，HTML，域名解析，等等，这一大堆东西可真有的折腾。但是如果有这样一个机会，不需要太复杂的操作，不要服务器，不要域名，不用写html，你愿意去尝试吗？无意间看到了别人各种炫酷的博客，发现有更加方便的方法搭建属于自己的专属博客，这不，花费了两天之间自己复制了一个玩玩，同时也是促进自己学习好前端。</strong></p>
+<span id="more"></span> 
+
+<h2 id="安装两大件（node-js-amp-amp-（git"><a href="#安装两大件（node-js-amp-amp-（git" class="headerlink" title="安装两大件（node.js) &amp;&amp; （git)"></a>安装两大件（node.js) &amp;&amp; （git)</h2><p>下面是两大件的安装地址<br>这是<a href="https://nodejs.org/zh-cn/">node.js</a>选择需要的版本下载，分别是32位和64位。<br>这是<a href="https://git-scm.com/download/win">git</a><br>大家直接无脑安装即可。</p>
+<h4 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h4><p>node -v<br>npm -v<br>git -v<br>如果出现版本号就是安装成功了哦！</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>hexo 安装之路</title>
     <url>/2021/11/30/hexo%E5%AE%89%E8%A3%85%E4%B9%8B%E8%B7%AF/</url>
     <content><![CDATA[<p><strong>很多人都想搭建自己的博客，但是奈何技术有限，服务器部署，HTML，域名解析，等等，这一大堆东西可真有的折腾。但是如果有这样一个机会，不需要太复杂的操作，不要服务器，不要域名，不用写html，你愿意去尝试吗？无意间看到了别人各种炫酷的博客，发现有更加方便的方法搭建属于自己的专属博客，这不，花费了两天之间自己复制了一个玩玩，同时也是促进自己学习好前端。</strong></p>
 <span id="more"></span> 
