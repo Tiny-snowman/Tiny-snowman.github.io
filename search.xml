@@ -12,6 +12,34 @@
       </tags>
   </entry>
   <entry>
+    <title>差分和前缀和</title>
+    <url>/2022/06/25/algorithm/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/</url>
+    <content><![CDATA[<p>一维前缀和：sum[i]=sum[i-1]+a[i];<br>二维前缀和：sum[i][j]=sum[i-1][j]+sum[i][j-1]+a[i][j]-sum[i][j];<br>一维  差分：d[i]=a[i]-a[i-1]<br>二维  差分：d[i][j]=a[i][j]+a[i+1][j+1]-a[i-1][j]-a[i][j-1]</p>
+<p>下面看几道题：</p>
+<p><a href="https://ac.nowcoder.com/acm/problem/21466">道路铺设</a></p>
+<p>题意：给一个长度n的数组a, 选择一段连续区间[L, R],让这段区间减1，求最少次数使数组a变为0<br>分析：数组变成0，即差分数组也都为0，我们对差分数组进行操作，区间减一操作可以认为选择两个i, j(i &lt; j)，d[i]–, d[j+1]++, <strong>那么我们结果只取决于差分数组中的正数项</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void slove() &#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)cin &gt;&gt; a[i];</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)d[i] = a[i] - a[i - 1];</span><br><span class="line">    ll ans = 0;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)if (d[i] &gt; 0)ans += d[i];</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://codeforces.com/contest/1700/problem/C">Helping the Nature</a></p>
+<p>题意：给定一个数组a，你可以执行一下操作<br>（1）另[1, i]减一<br>（2）另[i, n]减一<br>（3）另[1, n]加一<br>问最少多少次可以使数组变成0<br>分析：数组变为0，即差分数组也都为0，则我们考虑操作对差分数组的影响<br>（1）选择一个i-1, 另d[1]–, d[i]++<br>（2）选择一个i-1, 另d[i]–<br>（3）d[1]++<br>那么对于i&gt;1, d[i]&lt;0的数，我们只能通过操作1来把负数转移到d[1]上去</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void slove() &#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)cin &gt;&gt; a[i];</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)d[i] = a[i] - a[i - 1];</span><br><span class="line">    int ans = 0;</span><br><span class="line">    for (int i = 2; i &lt;= n; i++) &#123;</span><br><span class="line">        if (d[i] &lt; 0) &#123;</span><br><span class="line">            d[1] += d[i];</span><br><span class="line">            ans -= d[i];</span><br><span class="line">            d[i] = 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)ans += abs(d[i]);</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.luogu.com.cn/problem/P4552">IncDec Sequence</a></p>
+<p>题意：给一个长度为n的数组a, 选择一段区间[L, R]，使这个区间内的数加一或减一，请问至少需要多少次操作才能使数列中的所有数都一样，并求出在保证最少次数的前提下，最终得到的数列有多少种。<br>分析：考虑对差分数组的影响，最后应该使得差分数组2到n项都为0，再看操作，可以使d[L]++, d[R+1]–或d[L]–, d[R+1]++,那我们可以将2到n这一段中和起来，up为正数之和，down为负数之和，选择两者最大即为答案。<a href="https://zhuanlan.zhihu.com/p/513685332">此题解</a>更为详细。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void solve()</span><br><span class="line">&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    long long up = 0, down = 0;</span><br><span class="line">    for(int i = 1; i &lt;= n; i ++) cin &gt;&gt; a[i];</span><br><span class="line">    for(int i = 1; i &lt;= n; i ++) d[i] = a[i]-a[i-1];</span><br><span class="line">    for(int i = 2; i &lt;= n; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(d[i] &gt; 0) up += d[i];</span><br><span class="line">        else down += abs(d[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; max(up, down) &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; abs(up - down) + 1 &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>乘法逆元</title>
     <url>/2022/07/04/algorithm/%E4%B9%98%E6%B3%95%E9%80%86%E5%85%83/</url>
     <content><![CDATA[<p>(a + b) % p = (a%p + b%p) %p （对）<br>(a - b) % p = (a%p - b%p) %p （对）<br>(a * b) % p = (a%p * b%p) %p （对）<br>(a / b) % p = (a%p / b%p) %p （错）</p>
@@ -40,21 +68,10 @@
       </tags>
   </entry>
   <entry>
-    <title>差分和前缀和</title>
-    <url>/2022/06/25/algorithm/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/</url>
-    <content><![CDATA[<p>一维前缀和：sum[i]=sum[i-1]+a[i];<br>二维前缀和：sum[i][j]=sum[i-1][j]+sum[i][j-1]+a[i][j]-sum[i][j];<br>一维  差分：d[i]=a[i]-a[i-1]<br>二维  差分：d[i][j]=a[i][j]+a[i+1][j+1]-a[i-1][j]-a[i][j-1]</p>
-<p>下面看几道题：</p>
-<p><a href="https://ac.nowcoder.com/acm/problem/21466">道路铺设</a></p>
-<p>题意：给一个长度n的数组a, 选择一段连续区间[L, R],让这段区间减1，求最少次数使数组a变为0<br>分析：数组变成0，即差分数组也都为0，我们对差分数组进行操作，区间减一操作可以认为选择两个i, j(i &lt; j)，d[i]–, d[j+1]++, <strong>那么我们结果只取决于差分数组中的正数项</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void slove() &#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)cin &gt;&gt; a[i];</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)d[i] = a[i] - a[i - 1];</span><br><span class="line">    ll ans = 0;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)if (d[i] &gt; 0)ans += d[i];</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><a href="https://codeforces.com/contest/1700/problem/C">Helping the Nature</a></p>
-<p>题意：给定一个数组a，你可以执行一下操作<br>（1）另[1, i]减一<br>（2）另[i, n]减一<br>（3）另[1, n]加一<br>问最少多少次可以使数组变成0<br>分析：数组变为0，即差分数组也都为0，则我们考虑操作对差分数组的影响<br>（1）选择一个i-1, 另d[1]–, d[i]++<br>（2）选择一个i-1, 另d[i]–<br>（3）d[1]++<br>那么对于i&gt;1, d[i]&lt;0的数，我们只能通过操作1来把负数转移到d[1]上去</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void slove() &#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)cin &gt;&gt; a[i];</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)d[i] = a[i] - a[i - 1];</span><br><span class="line">    int ans = 0;</span><br><span class="line">    for (int i = 2; i &lt;= n; i++) &#123;</span><br><span class="line">        if (d[i] &lt; 0) &#123;</span><br><span class="line">            d[1] += d[i];</span><br><span class="line">            ans -= d[i];</span><br><span class="line">            d[i] = 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++)ans += abs(d[i]);</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.luogu.com.cn/problem/P4552">IncDec Sequence</a></p>
-<p>题意：给一个长度为n的数组a, 选择一段区间[L, R]，使这个区间内的数加一或减一，请问至少需要多少次操作才能使数列中的所有数都一样，并求出在保证最少次数的前提下，最终得到的数列有多少种。<br>分析：考虑对差分数组的影响，最后应该使得差分数组2到n项都为0，再看操作，可以使d[L]++, d[R+1]–或d[L]–, d[R+1]++,那我们可以将2到n这一段中和起来，up为正数之和，down为负数之和，选择两者最大即为答案。<a href="https://zhuanlan.zhihu.com/p/513685332">此题解</a>更为详细。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void solve()</span><br><span class="line">&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    long long up = 0, down = 0;</span><br><span class="line">    for(int i = 1; i &lt;= n; i ++) cin &gt;&gt; a[i];</span><br><span class="line">    for(int i = 1; i &lt;= n; i ++) d[i] = a[i]-a[i-1];</span><br><span class="line">    for(int i = 2; i &lt;= n; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(d[i] &gt; 0) up += d[i];</span><br><span class="line">        else down += abs(d[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; max(up, down) &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; abs(up - down) + 1 &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+    <title>动态规划之经典问题</title>
+    <url>/2022/06/01/algorithm/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%BB%8F%E5%85%B8%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for(int i = 1; i &lt;= n; i ++)</span><br><span class="line">&#123;</span><br><span class="line">    dp[i] = 1;</span><br><span class="line">    for(int j = i-1; j; j --)</span><br><span class="line">    &#123;   </span><br><span class="line">        //最长不下降子序列</span><br><span class="line">        if(a[j] &lt;= a[i]</span><br><span class="line">        dp[i] = max(dp[i], dp[j]+1);</span><br><span class="line">        //最长不上升子序列</span><br><span class="line">        if(a[j] &gt;= a[i])</span><br><span class="line">        dp[i] = max(dp[i], dp[j]+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二分做法（O-nlogn"><a href="#二分做法（O-nlogn" class="headerlink" title="二分做法（O(nlogn))"></a>二分做法（O(nlogn))</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">memset(b, 0x3f3f, sizeof b);</span><br><span class="line">memset(c, -0x3f3f, sizeof c);</span><br><span class="line">for (int i = 1; i &lt;= n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    //在下降的序列中寻找小于arr[i]的数</span><br><span class="line">    *upper_bound(c + 1, c + 1 + n, arr[i], greater&lt;int&gt;()) = arr[i];</span><br><span class="line">    *lower_bound(b + 1, b + 1 + n, arr[i]) = arr[i];</span><br><span class="line">&#125;</span><br><span class="line">//最长下降长度</span><br><span class="line">cout &lt;&lt; lower_bound(c + 1, c + n + 1, c[0], greater&lt;int&gt;()) - c - 1 &lt;&lt; endl;</span><br><span class="line">//最长上升长度</span><br><span class="line">cout &lt;&lt; lower_bound(b + 1, b + 1 + n, b[0]) - b - 1 &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -65,6 +82,57 @@
       </categories>
       <tags>
         <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>约瑟夫环</title>
+    <url>/2021/07/28/algorithm/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF/</url>
+    <content><![CDATA[<p><strong>递归方法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int ysf(int n, int m, int i)</span><br><span class="line">//有n个人，报道数字k时出局，第i个人出局的编号</span><br><span class="line">&#123;</span><br><span class="line">    if(i == 1) return (m-1+n)%n;</span><br><span class="line">    return (ysf(n-1, m, i-1)+m)%n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>链表写法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">list&lt;int&gt; li;</span><br><span class="line">int cnt, num;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int m, n;</span><br><span class="line">    cin &gt;&gt; m &gt;&gt; n;</span><br><span class="line">    for(int i = 1; i &lt;= m; i ++) li.push_back(i);</span><br><span class="line">    list&lt;int&gt; ::iterator it = li.begin();</span><br><span class="line">    int f = 0;</span><br><span class="line">    while(li.size() != 1)</span><br><span class="line">    &#123;</span><br><span class="line">        num ++;</span><br><span class="line">        if(f) it ++;</span><br><span class="line">        f = 1;</span><br><span class="line">        if(it == li.end()) it = li.begin();</span><br><span class="line">        if(num == n)</span><br><span class="line">        &#123;</span><br><span class="line">            it = li.erase(it);</span><br><span class="line">            f = 0;</span><br><span class="line">            num = 0;</span><br><span class="line">            if(it == li.end()) it = li.begin(), f = 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    it = li.begin();</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>手写循环链表</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int n, m;</span><br><span class="line"></span><br><span class="line">typedef struct node</span><br><span class="line">&#123;</span><br><span class="line">	/* data */</span><br><span class="line">	int data;</span><br><span class="line">	struct node* next;</span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line">void ysf(int n, int m)</span><br><span class="line">&#123;</span><br><span class="line">	Node *head = NULL, *p = NULL, *r = NULL;</span><br><span class="line">	head = (Node*)malloc(sizeof(Node));</span><br><span class="line">	head-&gt;data = 1;</span><br><span class="line">	head-&gt;next = NULL;</span><br><span class="line">	p = head;</span><br><span class="line">	for(int i = 2; i &lt;= n; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		r = (Node*)malloc(sizeof(Node));</span><br><span class="line">		r-&gt;data = i;</span><br><span class="line">		r-&gt;next = NULL;</span><br><span class="line">		p-&gt;next = r;</span><br><span class="line">		p = r;</span><br><span class="line">	&#125;</span><br><span class="line">	p-&gt;next = head;</span><br><span class="line">	p = head;</span><br><span class="line">	while(p-&gt;next != p)</span><br><span class="line">	&#123;</span><br><span class="line">		for(int i = 1; i &lt; m; i ++)</span><br><span class="line">		&#123;</span><br><span class="line">			r = p;</span><br><span class="line">			p = p-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		r-&gt;next = p-&gt;next;</span><br><span class="line">		p = p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; p-&gt;data &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">	ysf(n, m);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+]]></content>
+      <categories>
+        <category>algorithm</category>
+      </categories>
+      <tags>
+        <tag>algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单例模式</title>
+    <url>/2022/06/23/note/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p>单例模式的优点：由于单例模式只生成一个实例，减少了系统性能开销，当一个对象的产生需要比较多的资源时，如读取配置，产生其他依赖对象时，则可以通过在应用启动时直接产生一个单例对象，然后永久驻留内存的方式来解决。</p>
+<p>饿汉式</p>
+<ul>
+<li>坏处：对象加载时间过长</li>
+<li>好处：线程安全</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class Singleton1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Bank bank1 = Bank.getBank();</span><br><span class="line">        Bank bank2 = Bank.getBank();</span><br><span class="line">        System.out.println(bank1 == bank2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Bank&#123;</span><br><span class="line">    private Bank()&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    private static Bank bank = new Bank();</span><br><span class="line">    public static Bank getBank()&#123;</span><br><span class="line">        return bank;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>懒汉式:</p>
+<ul>
+<li>坏处：线程不安全</li>
+<li>好处：延迟对象的创建</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class singleton2 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Order order1 = Order.getInstance();</span><br><span class="line">        Order order2 = Order.getInstance();</span><br><span class="line">        System.out.println(order1 == order2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Order&#123;</span><br><span class="line">    private Order()&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    private static Order instance = null;</span><br><span class="line">    public static Order getInstance()&#123;</span><br><span class="line">        if(instance == null)&#123;</span><br><span class="line">            instance = new Order();</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -263,74 +331,6 @@
       </categories>
       <tags>
         <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>单例模式</title>
-    <url>/2022/06/23/note/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>单例模式的优点：由于单例模式只生成一个实例，减少了系统性能开销，当一个对象的产生需要比较多的资源时，如读取配置，产生其他依赖对象时，则可以通过在应用启动时直接产生一个单例对象，然后永久驻留内存的方式来解决。</p>
-<p>饿汉式</p>
-<ul>
-<li>坏处：对象加载时间过长</li>
-<li>好处：线程安全</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class Singleton1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Bank bank1 = Bank.getBank();</span><br><span class="line">        Bank bank2 = Bank.getBank();</span><br><span class="line">        System.out.println(bank1 == bank2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Bank&#123;</span><br><span class="line">    private Bank()&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    private static Bank bank = new Bank();</span><br><span class="line">    public static Bank getBank()&#123;</span><br><span class="line">        return bank;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>懒汉式:</p>
-<ul>
-<li>坏处：线程不安全</li>
-<li>好处：延迟对象的创建</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class singleton2 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Order order1 = Order.getInstance();</span><br><span class="line">        Order order2 = Order.getInstance();</span><br><span class="line">        System.out.println(order1 == order2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Order&#123;</span><br><span class="line">    private Order()&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    private static Order instance = null;</span><br><span class="line">    public static Order getInstance()&#123;</span><br><span class="line">        if(instance == null)&#123;</span><br><span class="line">            instance = new Order();</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动态规划之经典问题</title>
-    <url>/2022/06/01/algorithm/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%BB%8F%E5%85%B8%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for(int i = 1; i &lt;= n; i ++)</span><br><span class="line">&#123;</span><br><span class="line">    dp[i] = 1;</span><br><span class="line">    for(int j = i-1; j; j --)</span><br><span class="line">    &#123;   </span><br><span class="line">        //最长不下降子序列</span><br><span class="line">        if(a[j] &lt;= a[i]</span><br><span class="line">        dp[i] = max(dp[i], dp[j]+1);</span><br><span class="line">        //最长不上升子序列</span><br><span class="line">        if(a[j] &gt;= a[i])</span><br><span class="line">        dp[i] = max(dp[i], dp[j]+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="二分做法（O-nlogn"><a href="#二分做法（O-nlogn" class="headerlink" title="二分做法（O(nlogn))"></a>二分做法（O(nlogn))</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">memset(b, 0x3f3f, sizeof b);</span><br><span class="line">memset(c, -0x3f3f, sizeof c);</span><br><span class="line">for (int i = 1; i &lt;= n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    //在下降的序列中寻找小于arr[i]的数</span><br><span class="line">    *upper_bound(c + 1, c + 1 + n, arr[i], greater&lt;int&gt;()) = arr[i];</span><br><span class="line">    *lower_bound(b + 1, b + 1 + n, arr[i]) = arr[i];</span><br><span class="line">&#125;</span><br><span class="line">//最长下降长度</span><br><span class="line">cout &lt;&lt; lower_bound(c + 1, c + n + 1, c[0], greater&lt;int&gt;()) - c - 1 &lt;&lt; endl;</span><br><span class="line">//最长上升长度</span><br><span class="line">cout &lt;&lt; lower_bound(b + 1, b + 1 + n, b[0]) - b - 1 &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-
-
-
-
-]]></content>
-      <categories>
-        <category>algorithm</category>
-      </categories>
-      <tags>
-        <tag>algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>约瑟夫环</title>
-    <url>/2021/07/28/algorithm/%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF/</url>
-    <content><![CDATA[<p><strong>递归方法</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int ysf(int n, int m, int i)</span><br><span class="line">//有n个人，报道数字k时出局，第i个人出局的编号</span><br><span class="line">&#123;</span><br><span class="line">    if(i == 1) return (m-1+n)%n;</span><br><span class="line">    return (ysf(n-1, m, i-1)+m)%n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p><strong>链表写法</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">list&lt;int&gt; li;</span><br><span class="line">int cnt, num;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int m, n;</span><br><span class="line">    cin &gt;&gt; m &gt;&gt; n;</span><br><span class="line">    for(int i = 1; i &lt;= m; i ++) li.push_back(i);</span><br><span class="line">    list&lt;int&gt; ::iterator it = li.begin();</span><br><span class="line">    int f = 0;</span><br><span class="line">    while(li.size() != 1)</span><br><span class="line">    &#123;</span><br><span class="line">        num ++;</span><br><span class="line">        if(f) it ++;</span><br><span class="line">        f = 1;</span><br><span class="line">        if(it == li.end()) it = li.begin();</span><br><span class="line">        if(num == n)</span><br><span class="line">        &#123;</span><br><span class="line">            it = li.erase(it);</span><br><span class="line">            f = 0;</span><br><span class="line">            num = 0;</span><br><span class="line">            if(it == li.end()) it = li.begin(), f = 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    it = li.begin();</span><br><span class="line">    cout &lt;&lt; *it &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<hr>
-<p><strong>手写循环链表</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int n, m;</span><br><span class="line"></span><br><span class="line">typedef struct node</span><br><span class="line">&#123;</span><br><span class="line">	/* data */</span><br><span class="line">	int data;</span><br><span class="line">	struct node* next;</span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line">void ysf(int n, int m)</span><br><span class="line">&#123;</span><br><span class="line">	Node *head = NULL, *p = NULL, *r = NULL;</span><br><span class="line">	head = (Node*)malloc(sizeof(Node));</span><br><span class="line">	head-&gt;data = 1;</span><br><span class="line">	head-&gt;next = NULL;</span><br><span class="line">	p = head;</span><br><span class="line">	for(int i = 2; i &lt;= n; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		r = (Node*)malloc(sizeof(Node));</span><br><span class="line">		r-&gt;data = i;</span><br><span class="line">		r-&gt;next = NULL;</span><br><span class="line">		p-&gt;next = r;</span><br><span class="line">		p = r;</span><br><span class="line">	&#125;</span><br><span class="line">	p-&gt;next = head;</span><br><span class="line">	p = head;</span><br><span class="line">	while(p-&gt;next != p)</span><br><span class="line">	&#123;</span><br><span class="line">		for(int i = 1; i &lt; m; i ++)</span><br><span class="line">		&#123;</span><br><span class="line">			r = p;</span><br><span class="line">			p = p-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		r-&gt;next = p-&gt;next;</span><br><span class="line">		p = p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; p-&gt;data &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">	ysf(n, m);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-]]></content>
-      <categories>
-        <category>algorithm</category>
-      </categories>
-      <tags>
-        <tag>algorithm</tag>
       </tags>
   </entry>
 </search>
