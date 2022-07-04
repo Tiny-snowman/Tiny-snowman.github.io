@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/facicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="java基本知识点总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jave基础 学习之旅">
+<meta property="og:url" content="http://example.com/2022/06/24/note/jave%E5%9F%BA%E7%A1%80%20%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/index.html">
+<meta property="og:site_name" content="Tiny-snowman&#39;s blog">
+<meta property="og:description" content="java基本知识点总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-24T11:41:52.495Z">
+<meta property="article:author" content="Tiny-snowman">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/06/24/note/jave%E5%9F%BA%E7%A1%80%20%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>jave基础 学习之旅 | Tiny-snowman's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tiny-snowman's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">迷途漫漫，终有一归。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/24/note/jave%E5%9F%BA%E7%A1%80%20%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.webp">
+      <meta itemprop="name" content="Tiny-snowman">
+      <meta itemprop="description" content="回首平生，皆是遗憾。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tiny-snowman's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          jave基础 学习之旅
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-24 00:00:00 / 修改时间：19:41:52" itemprop="dateCreated datePublished" datetime="2022-06-24T00:00:00+08:00">2022-06-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">java基本知识点总结</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<h3 id="Java的基本程序设计结构"><a href="#Java的基本程序设计结构" class="headerlink" title="Java的基本程序设计结构"></a>Java的基本程序设计结构</h3><hr>
+<p><strong>类名</strong>：必须以字母开头，后面可以跟字母和数字的任意组合<br><strong>数据类型</strong>：</p>
+<ul>
+<li>int 4字节</li>
+<li>short 2字节</li>
+<li>long 8字节</li>
+<li>byte 1字节</li>
+<li>float 4字节</li>
+<li>double 8字节 </li>
+<li>无穷大 Double.POSITIVE_INTINITY  无穷小 Double.NEGATIVE_INFINITY 不是数字 NaN</li>
+<li>eg: 0.125 = 2^-3  0x1.0p-3，尾数采用十六进制，指数采用十进制，指数的基数是2</li>
+</ul>
+<p><strong>常量</strong>：</p>
+<ul>
+<li>final 只能在方法中定义</li>
+<li>public static final 类常量，所有方法都可以使用</li>
+</ul>
+<p><strong>运算符</strong></p>
+<ul>
+<li>整数被0除产生异常，浮点数被0除得到无穷大或NaN</li>
+<li>三目运算符 condition ？ expression1 : expression2</li>
+<li>+=是右结合运算符 eg: a += b += c 等价于 a += (b += c)</li>
+</ul>
+<p><strong>字符串</strong></p>
+<ul>
+<li>string类没有提供修改字符串某个字符的方法</li>
+<li>substring(a, b) [a, b)</li>
+<li>检测字符串是否相等 s.equals(t) or s.compareT0(t) == 0</li>
+<li>null 串</li>
+<li>format 方法创建一个格式化的字符串</li>
+</ul>
+<p><strong>大数</strong></p>
+<ul>
+<li>BigInteger BigDecimal</li>
+<li>value0f 将普通的数转化为大数</li>
+<li>add subtract multiply divide mod</li>
+</ul>
+<p><strong>数组</strong></p>
+<ul>
+<li>允许长度为0的数组 new elementType[0]</li>
+<li>for (variable : collection) statement，collection 这一集合必须是一个数组或者是一个实现了iterable接口的类对象</li>
+<li>深拷贝Arrays.copy0f(xxx[] a, int end), Arrays.copy0fRange(xxx[] a, int start, int end)</li>
+<li>sort(xxx[] a)</li>
+<li>binarySearch(xxx[] a, xxx v)找到返回下标，否者返回一个负数r, -r-1是应该插入的位置</li>
+</ul>
+<hr>
+<h3 id="对象与类"><a href="#对象与类" class="headerlink" title="对象与类"></a>对象与类</h3><hr>
+<p><strong>对象</strong></p>
+<ul>
+<li>任何对象变量的值都是对存储在另外一个地方的某个对象的引用</li>
+</ul>
+<p><strong>构造器</strong></p>
+<ul>
+<li>构造器的名字应该于类名相同</li>
+<li>构造器没有返回值</li>
+<li>构造器总是结合new运算符来调用，不能对一个已经存在的对象调用构造器来达到重新设置实例字段的目的</li>
+</ul>
+<p><strong>var关键字</strong></p>
+<ul>
+<li>var关键字只能用于方法中的局部变量</li>
+</ul>
+<p><strong>隐士参数</strong></p>
+<ul>
+<li>在每个方法中，关键字this总是指向隐士参数</li>
+</ul>
+<p><strong>final实例字段</strong></p>
+<ul>
+<li>将实例字段定义为final，这样的字段必须在构造对象时初始化</li>
+<li>对于可变的类，使用final修饰符可能会造成混乱 eg evaluations = new StringBuilder(); final关键字只是表示存储在evaluations变量中的对象引用不会在指示另一个不同的StringBuilder对象，不过这个对象可以更改</li>
+</ul>
+<p><strong>静态字段</strong></p>
+<ul>
+<li>每个类只有一个这样的字段</li>
+<li>属于类，而不属于任何单个的对象 eg private static int nexted = 1;</li>
+</ul>
+<p><strong>静态常量</strong></p>
+<ul>
+<li>eg public static final double PI = 3.1415926</li>
+<li>如果省略关键字static，PI就变成了Math类的一个实例字段，也就是说，需要通过Math类的一个对象来访问PI，并且每个Math对象都有它自己的一个PI副本</li>
+</ul>
+<p><strong>静态方法</strong></p>
+<ul>
+<li>不是在对象上执行的方法，没有隐士参数</li>
+<li>静态方法可以访问静态字段</li>
+<li>使用类名而不是对象来调用静态方法 </li>
+</ul>
+<p><strong>方法参数</strong></p>
+<ul>
+<li>按值调用（不修改原来的值），按引用调用（原来的值改变）</li>
+<li>java对对象的引用采用的不是按引用调用，实际上，对象引用是按值传递的</li>
+<li>方法不能修改基本数据类型的参数（即数值型或布尔型）</li>
+<li>方法可以改变对象参数的状态</li>
+<li>方法不能让一个对象参数引用一个新的对象</li>
+</ul>
+<p><strong>初始化块</strong></p>
+<ul>
+<li>只要构造这个类的对象，这些块就会被执行</li>
+<li>首先运行初始化块，然后才运行构造器的主体部分</li>
+</ul>
+<p><strong>静态导入</strong></p>
+<ul>
+<li>eg import static java.lang.System.*;可以使用System类的静态方法和静态字段，而不必加类名前缀</li>
+<li>在包中增加类 package com.horstamnn.corejava;  </li>
+</ul>
+<hr>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><hr>
+<p><strong>子类构造器</strong></p>
+<ul>
+<li>使用super调用构造器的语句必须是子类构造器的第一条语句</li>
+</ul>
+<p><strong>方法的调用</strong></p>
+<ul>
+<li>在覆盖一个方法的时候，子类方法不能低于超类方法的可见性</li>
+<li>覆盖方法（子类的方法）的参数列表必须与Overridden方法（父类的方法）匹配。参数的数据类型及其顺序应完全匹配。</li>
+</ul>
+<p><strong>阻止继承</strong></p>
+<ul>
+<li>将一个类声明为final，只有其中的方法自动地成为final，而不包括字段</li>
+</ul>
+<p><strong>强制类型转换</strong></p>
+<ul>
+<li>只能在继承层次进行强制类型转换</li>
+<li>再将超类强制转换成子类之前，应该使用instanceof进行检查</li>
+<li>result = object instanceof class，如果 object 是 class 的一个实例，则 instanceof 运算符返回 true。如果 object 不是指定类的一个实例，或者 object 是 null，则返回 false。</li>
+</ul>
+<p><strong>抽象类</strong></p>
+<ul>
+<li>抽象类不能实例化</li>
+<li>包含一个或多个抽象方法的类本身必须被声明为抽象的</li>
+</ul>
+<p><strong>修饰符</strong></p>
+<ul>
+<li>仅对本类可见————private</li>
+<li>对外部完全可见————public</li>
+<li>对本包和所有子类可见————protected</li>
+<li>对本包可见————默认，不需要修饰符</li>
+</ul>
+<p><strong>equals方法</strong></p>
+<ul>
+<li>Object类中实现地equals方法将确定两个对象<strong>引用</strong>是否相等</li>
+</ul>
+<p><strong>toString方法</strong></p>
+<ul>
+<li>Object类定义了toString方法，可以打印对象地类名和散列码</li>
+</ul>
+<p><strong>泛型数组列表</strong></p>
+<ul>
+<li>ArrayList<E>(int initialCapacity)</li>
+<li>add, set, get set方法只是用来替换数组中已经加入的元素</li>
+<li>尖括号中的类型参数不允许是基本类型</li>
+</ul>
+<p><strong>自动装箱的规范要求</strong></p>
+<ul>
+<li>装箱和拆箱是编译器要做的工作，而不是虚拟机，编译器再生成类的字节码时会插入必要的方法调用，虚拟机只执行这些字节码</li>
+<li>boolean, byte, char&lt;=127, 介于-128和127之间的short和int被包装到固定的对象中</li>
+<li>如果在一个条件表达式中混合使用Integer和Double类型，Integer值就会拆箱，提升为double，在装箱为Double</li>
+</ul>
+<p><strong>参数可变的方法</strong></p>
+<ul>
+<li>eg:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public static double dmax(double... value)</span><br><span class="line">&#123;</span><br><span class="line">    double lar = Double.NEGATIVE_INFINITY;</span><br><span class="line">    for(double s : value)</span><br><span class="line">    &#123;</span><br><span class="line">        if(s &gt; lar) lar = s;</span><br><span class="line">    &#125;</span><br><span class="line">    return lar;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>枚举类</strong></p>
+<ul>
+<li>public enum Size{SMALL, MEDIUM, LARGE, EXTRA_LARGE}声明定义的类型是一个类， 有4个实例，不可能构造新的对象，比较时直接用==</li>
+<li>枚举类型增加构造器，方法和字段，构造器只在构造枚举常量的时候调用</li>
+<li>枚举的构造器总是私有的</li>
+</ul>
+<hr>
+<h3 id="接口，lambda表达式与内部类"><a href="#接口，lambda表达式与内部类" class="headerlink" title="接口，lambda表达式与内部类"></a>接口，lambda表达式与内部类</h3><hr>
+<p><strong>接口</strong></p>
+<ul>
+<li>接口中的所有方法都自动是public方法</li>
+<li>成员变量：只能是常量。默认修饰符：public static final</li>
+<li>接口绝不会有实例字段，在Java8之前，接口绝不会实现方法</li>
+<li>接口能够声明接口的变量，但接口变量必须引用实现了这个接口的类对象</li>
+<li>如果同时实现两个接口，接口中定义了一样的默认方法，必须重写，不然会报错。（接口冲突）</li>
+<li>接口中定义的静态方法，只能通过接口来调用</li>
+<li>通过实现类的对象，可以调用接口中的默认方法</li>
+<li>在子类或实现类的方法中调用接口中方法：接口.super.方法</li>
+</ul>
+<p><strong>接口和抽象类的异同</strong></p>
+<ul>
+<li>抽象类又构造方法，接口没有</li>
+<li>都不能够有实例对象</li>
+<li>接口的变量只能是常量，抽象类可以是变量也可以是常量</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/23/note/Java%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="prev" title="单例模式">
+      <i class="fa fa-chevron-left"></i> 单例模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/25/algorithm/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/" rel="next" title="差分和前缀和">
+      差分和前缀和 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84"><span class="nav-text">Java的基本程序设计结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB"><span class="nav-text">对象与类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-text">继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%EF%BC%8Clambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-text">接口，lambda表达式与内部类</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tiny-snowman"
+      src="/images/avatar.webp">
+  <p class="site-author-name" itemprop="name">Tiny-snowman</p>
+  <div class="site-description" itemprop="description">回首平生，皆是遗憾。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Tiny-snowman" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Tiny-snowman" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:81796017@qq.com" title="E-Mail → mailto:81796017@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=0&id=4925672924&auto=1&height=90"></iframe>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiny-snowman</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
