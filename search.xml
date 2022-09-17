@@ -40,6 +40,33 @@
       </tags>
   </entry>
   <entry>
+    <title>java 多线程</title>
+    <url>/2022/07/04/note/java%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="程序，进程和线程"><a href="#程序，进程和线程" class="headerlink" title="程序，进程和线程"></a>程序，进程和线程</h2><p>程序：是为完成特定任务，用某种语言编写的一组指令的集合<br>进程：是一个应用程序<br>线程：一个进程中执行场景/执行单元<br>eg：一个进程可以启动多个线程</p>
+<h2 id="并行与并发"><a href="#并行与并发" class="headerlink" title="并行与并发"></a>并行与并发</h2><p>并行：多个CPU同时执行多个任务<br>并发：一个CPU(采用时间片)同时执行多个任务</p>
+<h2 id="实现多线程的四种方式"><a href="#实现多线程的四种方式" class="headerlink" title="实现多线程的四种方式"></a>实现多线程的四种方式</h2><ul>
+<li>一 直接继承Thred类<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class ThredTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        MyThread mt = new MyThread();</span><br><span class="line">        mt.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyThread extends Thread&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>二 实现Runnable接口<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class ThredTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        MyThread mt = new MyThread();</span><br><span class="line">        Thread thread = new Thread(mt);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyThread implements Runnable&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>三 实现callable接口(调用call方法，该方法具有返回值)<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class ThredTest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        MyThread mt = new MyThread();</span><br><span class="line">        /*</span><br><span class="line">        Future 接口</span><br><span class="line">        1：可以对具体Runnable,Callable任务的执行结果进行取消，查询是否完成，获取结果等</span><br><span class="line">        2：FutureTask是Future接口的唯一的实现类</span><br><span class="line">        3：FutureTask同时实现了Runnable，Future接口，它既可以作为Runnable被线程执行，有可以作为Future得到Callable的返回值</span><br><span class="line">         */</span><br><span class="line">        FutureTask futureTask = new FutureTask(mt);</span><br><span class="line">        new Thread(futureTask).start();</span><br><span class="line">        Object rt = futureTask.get();// call方法的返回值</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyThread implements Callable&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public Object call() throws Exception &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>四 线程池(提高速度，降低资源消耗，便于线程管理)<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class ThredTest2 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ExecutorService service = Executors.newFixedThreadPool(10);</span><br><span class="line">        //设置线程池的属性</span><br><span class="line">        ThreadPoolExecutor service1 = (ThreadPoolExecutor) service;</span><br><span class="line">        </span><br><span class="line">        service.execute();//适合使用Runnable</span><br><span class="line">        service.submit();//适合使用Callable</span><br><span class="line">        service.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2>五大状态：新建 就绪 运行 阻塞 死亡</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20210512173109590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NzE1OTQz,size_16,color_FFFFFF,t_70"></p>
+<h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2><p>解决方法</p>
+<ul>
+<li>同步代码块(需要同步监视器)</li>
+<li>同步方法</li>
+<li>Lock锁方式</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>差分和前缀和</title>
     <url>/2022/06/25/algorithm/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/</url>
     <content><![CDATA[<p>一维前缀和：sum[i]=sum[i-1]+a[i];<br>二维前缀和：sum[i][j]=sum[i-1][j]+sum[i][j-1]+a[i][j]-sum[i][j];<br>一维  差分：d[i]=a[i]-a[i-1]<br>二维  差分：d[i][j]=a[i][j]+a[i+1][j+1]-a[i-1][j]-a[i][j-1]</p>
